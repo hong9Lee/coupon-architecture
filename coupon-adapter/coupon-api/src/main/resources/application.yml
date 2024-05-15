@@ -1,2 +1,16 @@
 server:
   port: 8081
+
+spring:
+  mvc:
+    path match:
+      matching-strategy: ant_path_matcher
+
+  application:
+    name: coupon-api
+
+  #  db
+  datasource:
+    url: jdbc:mysql://localhost:23306/local_db
+    username: root
+    password: 102030

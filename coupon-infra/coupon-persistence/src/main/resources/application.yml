@@ -1,1 +1,13 @@
-spring.application.name=coupon-persistence
+spring:
+  mvc:
+    path match:
+      matching-strategy: ant_path_matcher
+
+  application:
+    name: coupon-persistence
+
+  #  db
+  datasource:
+    url: jdbc:mysql://localhost:23306/local_db
+    username: root
+    password: 102030

@@ -19,7 +19,6 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":coupon-application:coupon-domain"))
 
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
