@@ -19,6 +19,11 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":coupon-application:coupon-core"))
+    implementation(project(":coupon-application:coupon-domain"))
+
+    implementation(project(":coupon-infra:coupon-persistence"))
+
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
