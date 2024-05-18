@@ -14,3 +14,7 @@ spring:
     url: jdbc:mysql://localhost:23306/local_db
     username: root
     password: 102030
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
