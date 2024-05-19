@@ -1,4 +1,4 @@
-package com.hg.persistence.entity
+package com.hg.coupon.entity
 
 import jakarta.persistence.*
 

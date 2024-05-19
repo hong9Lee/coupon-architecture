@@ -1,9 +1,8 @@
-package com.hg.persistence.adapter
+package com.hg.coupon.adapter
 
-import com.hg.core.adapter.CouponAdapter
-import com.hg.domain.model.Coupon
-import com.hg.persistence.entity.CouponEntity
-import com.hg.persistence.repository.CouponJpaRepository
+import com.hg.coupon.model.Coupon
+import com.hg.coupon.entity.CouponEntity
+import com.hg.coupon.repository.CouponJpaRepository
 import org.springframework.stereotype.Component
 
 @Component

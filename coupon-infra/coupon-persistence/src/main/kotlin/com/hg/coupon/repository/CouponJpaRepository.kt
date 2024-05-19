@@ -1,6 +1,6 @@
-package com.hg.persistence.repository
+package com.hg.coupon.repository
 
-import com.hg.persistence.entity.CouponEntity
+import com.hg.coupon.entity.CouponEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 

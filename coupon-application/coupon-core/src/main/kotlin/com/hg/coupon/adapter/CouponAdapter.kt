@@ -1,6 +1,6 @@
-package com.hg.core.adapter
+package com.hg.coupon.adapter
 
-import com.hg.domain.model.Coupon
+import com.hg.coupon.model.Coupon
 
 interface CouponAdapter {
     fun saveCoupon(coupon: Coupon)

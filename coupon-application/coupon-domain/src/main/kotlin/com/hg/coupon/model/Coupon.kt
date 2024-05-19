@@ -1,4 +1,4 @@
-package com.hg.domain.model
+package com.hg.coupon.model
 
 class Coupon (
         val name: String?= null

@@ -1,6 +1,6 @@
-package com.hg.api.controller
+package com.hg.coupon.controller
 
-import com.hg.core.service.CreateCouponService
+import com.hg.coupon.service.CreateCouponService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
