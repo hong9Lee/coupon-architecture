@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component
 @Component
 class CouponAdapterImpl(private val couponJpaRepository: CouponJpaRepository): CouponAdapter {
     override fun saveCoupon(coupon: Coupon) {
-        val couponEntity = coupon.name?.let { CouponEntity.of(it) }
-        if (couponEntity != null) {
-            couponJpaRepository.save(couponEntity)
-        }
+//        val couponEntity = coupon.name?.let { CouponEntity.of(it) }
+//        if (couponEntity != null) {
+//            couponJpaRepository.save(couponEntity)
+//        }
 
     }
 
