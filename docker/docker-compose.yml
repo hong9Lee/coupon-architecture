@@ -1,0 +1,77 @@
+version: "3.8"
+
+services:
+  mysql:
+    container_name: mysql
+    platform: linux/amd64
+    image: mysql:8-oracle
+    volumes:
+      - ./local-db/conf:/etc/mysql/conf.d
+      - ./local-db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "23306:3306"
+    environment:
+      TZ: Asia/Seoul
+      MYSQL_ROOT_PASSWORD: 102030
+    ulimits:
+      nofile:
+        soft: 20000
+        hard: 40000
+    networks:
+      - local-net
+
+  zookeeper:
+    container_name: zookeeper
+    image: confluentinc/cp-zookeeper:latest
+    ports:
+      - "2181:2181"
+    environment:
+      ZOO_SERVER_JVMFLAGS: "-Xms2G -Xmx2G"
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - local-net
+
+  kafka:
+    container_name: kafka
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+    networks:
+      - local-net
+
+  local-redis:
+    container_name: local-redis
+    image: redis:latest
+    ports:
+      - "26379:6379"  # 호스트의 26379 포트와 컨테이너의 6379 포트(기본 Redis 포트)를 매핑
+    networks:
+      - local-net
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui
+    container_name: kafka-ui
+    ports:
+      - "8989:8080"
+    restart: always
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:29092
+      - KAFKA_CLUSTERS_0_ZOOKEPER=zookeeper:22181
+
+networks:
+  local-net:
+    driver: bridge
+    external: true
+    name: docker_local-net
