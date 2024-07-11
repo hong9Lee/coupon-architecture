@@ -8,20 +8,20 @@ import jakarta.persistence.*
 @Table(name = "cp_coupon")
 class CouponEntity(
 
-        @Embedded
+    @Embedded
         @AttributeOverride(name = "value", column = Column(name = "coupon_id"))
         private val couponId: EntityId,
 
-        @Column(name = "coupon_name")
+    @Column(name = "coupon_name")
         private val couponName: String? = null,
 
-        @Column(name = "ch_id")
+    @Column(name = "ch_id")
         private val chId: String,
 
-        @Column(name = "user_id")
+    @Column(name = "user_id")
         private val userId: String,
 
-        @Embedded
+    @Embedded
         @AttributeOverrides(
                 value = [
                     AttributeOverride(name = "majorCategory", column = Column(name = "major_category")),

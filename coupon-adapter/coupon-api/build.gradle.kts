@@ -14,7 +14,7 @@ jar.enabled = false
 
 dependencies {
     implementation(project(":coupon-application:coupon-core"))
-    implementation(project(":coupon-application:coupon-domain"))
+    implementation(project(":coupon-application:coupon-edge"))
 
     implementation(project(":coupon-infra:coupon-persistence"))
 

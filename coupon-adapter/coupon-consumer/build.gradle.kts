@@ -14,9 +14,15 @@ jar.enabled = false
 
 dependencies {
     implementation(project(":coupon-application:coupon-core"))
+    implementation(project(":coupon-application:coupon-edge"))
+
+    implementation(project(":coupon-infra:coupon-persistence"))
 
     implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
 }
