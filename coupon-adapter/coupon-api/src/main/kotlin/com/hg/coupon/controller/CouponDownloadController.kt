@@ -1,7 +1,7 @@
 package com.hg.coupon.controller
 
 import com.hg.coupon.application.port.`in`.command.coupon.DownloadAsyncCouponResult
-import com.hg.coupon.domain.EntityId
+import com.hg.coupon.support.EntityId
 import com.hg.coupon.request.DownloadAsyncCouponRequest
 import com.hg.coupon.response.DownloadLimitedCouponResponse
 import com.hg.coupon.supprots.UrlConstants

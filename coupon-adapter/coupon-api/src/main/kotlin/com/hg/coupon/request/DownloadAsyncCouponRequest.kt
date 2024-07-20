@@ -2,7 +2,7 @@ package com.hg.coupon.request
 
 import com.hg.coupon.application.port.`in`.command.SendDownloadAsyncCouponCommand
 import com.hg.coupon.application.port.`in`.command.coupon.DownloadAsyncCouponCommand
-import com.hg.coupon.domain.EntityId
+import com.hg.coupon.support.EntityId
 
 data class DownloadAsyncCouponRequest(
     val couponPolicyId: String,

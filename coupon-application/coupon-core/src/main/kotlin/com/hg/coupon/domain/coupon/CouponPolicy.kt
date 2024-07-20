@@ -2,19 +2,21 @@ package com.hg.coupon.domain.coupon
 
 import com.hg.coupon.support.Amount
 import com.hg.coupon.support.EntityId
+import com.hg.coupon.domain.coupon.enums.CouponPolicyStatus
 import java.time.ZonedDateTime
 
 /**
- * 쿠폰 도메인
- * 한번 발급받은 쿠폰의 정책은 변경되지 않고, 상태만 변경된다.
+ * 쿠폰 정책 도메인정책
  */
-class Coupon(
+class CouponPolicy(
     val seq: Long? = null,
-    val couponId: EntityId,
     val couponPolicyId: EntityId,
-    val userId: EntityId,
-    val couponName: String,
-    val discountValue: Amount,
+    val couponPolicyStatus: CouponPolicyStatus,
+    val couponName: String, // 대외 노출용 쿠폰명
+
+    val discountValue: Amount, // 할인 금액
+
+    /** 발행 기간 */
     val couponStartDateTime: ZonedDateTime,
     val couponExpireDateTime: ZonedDateTime,
 ) {

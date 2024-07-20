@@ -1,4 +1,4 @@
-package com.hg.coupon.domain
+package com.hg.coupon.support
 
 import java.math.BigDecimal
 import java.math.RoundingMode

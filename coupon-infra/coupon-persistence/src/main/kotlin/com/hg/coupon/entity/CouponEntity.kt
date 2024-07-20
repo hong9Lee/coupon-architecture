@@ -1,52 +1,67 @@
 package com.hg.coupon.entity
 
-import com.hg.coupon.domain.Classfication
-import com.hg.coupon.domain.EntityId
+import com.hg.coupon.support.Amount
+import com.hg.coupon.support.EntityId
+import com.hg.coupon.domain.coupon.Coupon
 import jakarta.persistence.*
+import java.math.BigDecimal
+import java.time.ZonedDateTime
 
 @Entity
 @Table(name = "cp_coupon")
 class CouponEntity(
 
     @Embedded
-        @AttributeOverride(name = "value", column = Column(name = "coupon_id"))
-        private val couponId: EntityId,
-
-    @Column(name = "coupon_name")
-        private val couponName: String? = null,
-
-    @Column(name = "ch_id")
-        private val chId: String,
-
-    @Column(name = "user_id")
-        private val userId: String,
+    @AttributeOverride(name = "value", column = Column(name = "coupon_id"))
+    private val couponId: EntityId,
 
     @Embedded
-        @AttributeOverrides(
-                value = [
-                    AttributeOverride(name = "majorCategory", column = Column(name = "major_category")),
-                    AttributeOverride(name = "middleCategory", column = Column(name = "middle_category")),
-                    AttributeOverride(name = "minorCategory", column = Column(name = "minor_category"))
+    @AttributeOverride(name = "value", column = Column(name = "coupon_policy_id"))
+    private val couponPolicyId: EntityId,
 
-                ]
-        )
-        private val category: Classfication
+    @Column(name = "coupon_name")
+    private val couponName: String,
 
+    @Column(name = "discount_value")
+    private val discountValue: BigDecimal,
 
+    @Embedded
+    @AttributeOverride(name = "value", column = Column(name = "user_id"))
+    private val userId: EntityId,
 
+    @Column(name = "coupon_start_date_time")
+    private val couponStartDateTime: ZonedDateTime,
 
-) : BaseTimeEntity() {
+    @Column(name = "coupon_expire_date_time")
+    private val couponExpireDateTime: ZonedDateTime,
+
+    ) : BaseTimeEntity() {
     companion object {
-        fun of(couponId: EntityId, name: String, chId: String, userId: String, classfication: Classfication): CouponEntity {
+        fun of(coupon: Coupon): CouponEntity {
             return CouponEntity(
-                    couponId = couponId,
-                    couponName = name,
-                    chId = chId,
-                    userId = userId,
-                    category = classfication
-            )
+                couponId = coupon.couponId,
+                couponPolicyId = coupon.couponPolicyId,
+                couponName = coupon.couponName,
+                discountValue = coupon.discountValue.value,
+                userId = coupon.userId,
+                couponStartDateTime = coupon.couponStartDateTime,
+                couponExpireDateTime = coupon.couponExpireDateTime
+            ).apply {
+                this.seq = coupon.seq
+            }
         }
     }
 
-
+    fun toDomain(): Coupon {
+        return Coupon(
+            seq = this.seq,
+            couponId = this.couponId,
+            couponPolicyId = this.couponPolicyId,
+            userId = this.userId,
+            couponName = this.couponName,
+            discountValue = Amount(this.discountValue.toLong()),
+            couponStartDateTime = this.couponStartDateTime,
+            couponExpireDateTime = this.couponExpireDateTime
+        )
+    }
 }

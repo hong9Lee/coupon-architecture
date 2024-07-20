@@ -1,0 +1,38 @@
+spring:
+  mvc:
+    path match:
+      matching-strategy: ant_path_matcher
+
+  application:
+    name: coupon-persistence
+
+  #  db
+  datasource:
+    url: jdbc:mysql://localhost:23306/local_db
+    username: root
+    password: 102030
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  flyway:
+    enabled: true
+    out-of-order: true
+    baseline-on-migrate: true
+    locations:
+      - "classpath:db/migration/coupon"
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  datasource:
+    hikari:
+      max-lifetime: 250000 #250 sec
+    driver-class-name: software.aws.rds.jdbc.mysql.Driver
+    url: jdbc:mysql:aws://localhost:3306/coupon?autoReconnect=true
+    username: user
+    password: user

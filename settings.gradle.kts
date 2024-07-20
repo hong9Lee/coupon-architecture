@@ -8,4 +8,5 @@ include("coupon-application:coupon-edge")
 
 
 include("coupon-infra:coupon-persistence")
+include("coupon-infra:coupon-orm-adapter")
 include("coupon-infra:coupon-kafka")

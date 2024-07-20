@@ -8,7 +8,8 @@ spring:
 
   application:
     name: coupon-api
-  config:
-    import:
-      - coupon-persistence.yml
+
+  profiles:
+    include:
+      - persistence
 
