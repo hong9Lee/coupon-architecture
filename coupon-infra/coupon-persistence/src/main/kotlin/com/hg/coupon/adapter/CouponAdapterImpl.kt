@@ -1,7 +1,6 @@
 package com.hg.coupon.adapter
 
-import com.hg.coupon.model.Coupon
-import com.hg.coupon.entity.CouponEntity
+import com.hg.coupon.domain.Coupon
 import com.hg.coupon.repository.CouponJpaRepository
 import org.springframework.stereotype.Component
 

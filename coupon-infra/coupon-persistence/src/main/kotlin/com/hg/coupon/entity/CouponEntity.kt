@@ -1,7 +1,7 @@
 package com.hg.coupon.entity
 
-import com.hg.coupon.model.Classfication
-import com.hg.coupon.model.EntityId
+import com.hg.coupon.domain.Classfication
+import com.hg.coupon.domain.EntityId
 import jakarta.persistence.*
 
 @Entity

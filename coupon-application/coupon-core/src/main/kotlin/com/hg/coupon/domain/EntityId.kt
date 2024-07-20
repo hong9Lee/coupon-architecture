@@ -1,4 +1,4 @@
-package com.hg.coupon.model
+package com.hg.coupon.domain
 
 import java.util.UUID
 

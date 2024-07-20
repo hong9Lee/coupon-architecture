@@ -1,7 +1,7 @@
 package com.hg.coupon.service
 
 import com.hg.coupon.adapter.CouponAdapter
-import com.hg.coupon.model.Coupon
+import com.hg.coupon.domain.Coupon
 import org.springframework.stereotype.Service
 
 @Service
