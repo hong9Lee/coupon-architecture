@@ -9,7 +9,7 @@ import java.util.*
 interface CouponRepository : CrudRepository<CouponEntity, Long> {
     fun findByCouponId(couponId: EntityId): Optional<CouponEntity>
 
-    fun findByCouponPolicyIdAndUserIdAndCouponUsageCouponUsageStatus(
+    fun findByCouponPolicyIdAndUserIdAndCouponUsageStatus(
         couponPolicyId: EntityId,
         userId: EntityId,
         couponUsageStatus: CouponUsageStatus,

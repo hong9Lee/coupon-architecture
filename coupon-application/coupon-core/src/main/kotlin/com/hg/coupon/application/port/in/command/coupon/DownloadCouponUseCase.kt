@@ -6,10 +6,11 @@ import java.time.ZonedDateTime
 interface DownloadCouponUseCase {
     fun downloadRequest(
         downloadCouponCommand: DownloadCouponCommand,
+        couponPolicy: CouponPolicy,
         now: ZonedDateTime
     ): DownloadCouponResult
 
     fun checkCouponDownloadable(
-        downloadAsyncCouponCommand: DownloadAsyncCouponCommand
-    ): DownloadAsyncCouponResult
+        downloadSyncCouponCommand: DownloadSyncCouponCommand
+    ): DownloadSyncCouponResult
 }

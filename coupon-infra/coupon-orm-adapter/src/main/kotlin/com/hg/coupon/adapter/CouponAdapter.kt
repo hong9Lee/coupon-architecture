@@ -3,7 +3,6 @@ package com.hg.coupon.adapter
 import com.hg.coupon.application.port.out.CouponPort
 import com.hg.coupon.support.EntityId
 import com.hg.coupon.domain.coupon.Coupon
-import com.hg.coupon.domain.coupon.CouponStock
 import com.hg.coupon.domain.coupon.enums.CouponUsageStatus
 import com.hg.coupon.entity.CouponEntity
 import com.hg.coupon.exception.ApplicationException
@@ -33,7 +32,7 @@ class CouponAdapter(
         userId: EntityId,
         couponStatus: CouponUsageStatus,
     ): Coupon? {
-        return couponRepository.findByCouponPolicyIdAndUserIdAndCouponUsageCouponUsageStatus(
+        return couponRepository.findByCouponPolicyIdAndUserIdAndCouponUsageStatus(
             couponPolicyId,
             userId,
             couponStatus

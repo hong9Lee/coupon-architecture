@@ -1,6 +1,6 @@
 package com.hg.coupon.response
 
-import com.hg.coupon.application.port.`in`.command.coupon.DownloadAsyncCouponResult
+import com.hg.coupon.application.port.`in`.command.coupon.DownloadSyncCouponResult
 
 data class DownloadLimitedCouponResponse(
     val couponPolicyId: String,
@@ -9,12 +9,12 @@ data class DownloadLimitedCouponResponse(
     val msg: String
 ) {
     companion object {
-        fun of(downloadAsyncCouponResult: DownloadAsyncCouponResult): DownloadLimitedCouponResponse {
+        fun of(downloadSyncCouponResult: DownloadSyncCouponResult): DownloadLimitedCouponResponse {
             return DownloadLimitedCouponResponse(
-                couponPolicyId = downloadAsyncCouponResult.couponPolicyId.value,
-                channelUserId = downloadAsyncCouponResult.channelUserId,
-                isSuccess = downloadAsyncCouponResult.isSuccess,
-                msg = downloadAsyncCouponResult.msg
+                couponPolicyId = downloadSyncCouponResult.couponPolicyId.value,
+                channelUserId = downloadSyncCouponResult.channelUserId,
+                isSuccess = downloadSyncCouponResult.isSuccess,
+                msg = downloadSyncCouponResult.msg
             )
         }
     }

@@ -3,6 +3,8 @@ package com.hg.coupon.service.validator
 import com.hg.coupon.application.port.out.CouponPolicyPort
 import com.hg.coupon.application.port.out.CouponPort
 import com.hg.coupon.application.port.out.CouponStockPort
+import com.hg.coupon.domain.coupon.CouponPolicy
+import com.hg.coupon.domain.coupon.CouponStock
 import com.hg.coupon.domain.coupon.enums.CouponPolicyStatus
 import com.hg.coupon.domain.coupon.enums.CouponUsageStatus
 import com.hg.coupon.exception.CouponAlreadyExistException

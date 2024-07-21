@@ -3,12 +3,13 @@ package com.hg.coupon.entity
 import com.hg.coupon.support.Amount
 import com.hg.coupon.support.EntityId
 import com.hg.coupon.domain.coupon.Coupon
+import com.hg.coupon.domain.coupon.enums.CouponUsageStatus
 import jakarta.persistence.*
 import java.math.BigDecimal
 import java.time.ZonedDateTime
 
 @Entity
-@Table(name = "cp_coupon")
+@Table(name = "coupon")
 class CouponEntity(
 
     @Embedded
@@ -24,6 +25,10 @@ class CouponEntity(
 
     @Column(name = "discount_value")
     private val discountValue: BigDecimal,
+
+    @Column(name = "coupon_usage_status")
+    @Enumerated(EnumType.STRING)
+    private val couponUsageStatus: CouponUsageStatus,
 
     @Embedded
     @AttributeOverride(name = "value", column = Column(name = "user_id"))
@@ -44,6 +49,7 @@ class CouponEntity(
                 couponName = coupon.couponName,
                 discountValue = coupon.discountValue.value,
                 userId = coupon.userId,
+                couponUsageStatus = coupon.couponUsageStatus,
                 couponStartDateTime = coupon.couponStartDateTime,
                 couponExpireDateTime = coupon.couponExpireDateTime
             ).apply {
@@ -59,6 +65,7 @@ class CouponEntity(
             couponPolicyId = this.couponPolicyId,
             userId = this.userId,
             couponName = this.couponName,
+            couponUsageStatus = this.couponUsageStatus,
             discountValue = Amount(this.discountValue.toLong()),
             couponStartDateTime = this.couponStartDateTime,
             couponExpireDateTime = this.couponExpireDateTime

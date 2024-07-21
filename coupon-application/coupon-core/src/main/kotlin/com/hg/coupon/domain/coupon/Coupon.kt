@@ -1,5 +1,6 @@
 package com.hg.coupon.domain.coupon
 
+import com.hg.coupon.domain.coupon.enums.CouponUsageStatus
 import com.hg.coupon.support.Amount
 import com.hg.coupon.support.EntityId
 import java.time.ZonedDateTime
@@ -14,6 +15,7 @@ class Coupon(
     val couponPolicyId: EntityId,
     val userId: EntityId,
     val couponName: String,
+    val couponUsageStatus: CouponUsageStatus,
     val discountValue: Amount,
     val couponStartDateTime: ZonedDateTime,
     val couponExpireDateTime: ZonedDateTime,

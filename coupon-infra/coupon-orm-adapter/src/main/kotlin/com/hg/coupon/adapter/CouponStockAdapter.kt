@@ -1,12 +1,12 @@
-package co.wadcorp.coupon.infra.adapter
+package com.hg.coupon.adapter
 
-import co.wadcorp.coupon.application.port.out.CouponStockPort
-import co.wadcorp.coupon.domain.coupon.CouponStock
-import co.wadcorp.coupon.domain.support.EntityId
-import co.wadcorp.coupon.exception.ApplicationException
-import co.wadcorp.coupon.exception.ErrorCode
-import co.wadcorp.coupon.persistence.entity.CouponStockEntity
-import co.wadcorp.coupon.persistence.repository.CouponStockRepository
+import com.hg.coupon.entity.CouponStockEntity
+import com.hg.coupon.application.port.out.CouponStockPort
+import com.hg.coupon.domain.coupon.CouponStock
+import com.hg.coupon.exception.ApplicationException
+import com.hg.coupon.exception.ErrorCode
+import com.hg.coupon.repository.CouponStockRepository
+import com.hg.coupon.support.EntityId
 import org.springframework.stereotype.Component
 
 @Component
