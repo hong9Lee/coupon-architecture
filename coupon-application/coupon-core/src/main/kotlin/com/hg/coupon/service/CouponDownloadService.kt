@@ -16,12 +16,20 @@ class CouponDownloadService(
 ): DownloadCouponUseCase {
     override fun downloadRequest(
         downloadCouponCommand: DownloadCouponCommand,
-        couponPolicy: CouponPolicy,
-        couponStock: CouponStock,
-        calculatedDiscountExecutionCost: Amount,
         now: ZonedDateTime
     ): DownloadCouponResult {
-        TODO("Not yet implemented")
+
+
+        /** 쿠폰 저장 */
+        val savedCoupon =
+            couponPort.saveCoupon(
+                downloadCouponCommand.toCoupon(couponPolicy)
+            )
+
+        return DownloadCouponResult(
+            couponPolicyId = savedCoupon.couponPolicyId,
+            couponId = savedCoupon.couponId
+        )
     }
 
     override fun checkCouponDownloadable(downloadAsyncCouponCommand: DownloadAsyncCouponCommand): DownloadAsyncCouponResult {

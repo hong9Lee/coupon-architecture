@@ -13,7 +13,7 @@ class CouponStock(
     var sellStock: Int
 ) {
 
-    private fun isRemainStock() = this.stock <= this.sellStock
+    fun isRemainStock() = this.stock <= this.sellStock
     fun increaseSellStock(): CouponStock {
         if (isRemainStock()) {
             throw OutOfCouponStockException.of()

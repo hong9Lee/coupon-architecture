@@ -4,6 +4,7 @@ import com.hg.coupon.application.port.out.CouponPort
 import com.hg.coupon.support.EntityId
 import com.hg.coupon.domain.coupon.Coupon
 import com.hg.coupon.domain.coupon.CouponStock
+import com.hg.coupon.domain.coupon.enums.CouponUsageStatus
 import com.hg.coupon.entity.CouponEntity
 import com.hg.coupon.exception.ApplicationException
 import com.hg.coupon.exception.ErrorCode
@@ -16,8 +17,7 @@ class CouponAdapter(
 ) : CouponPort {
 
     override fun saveCoupon(
-        coupon: Coupon,
-        couponStock: CouponStock
+        coupon: Coupon
     ): Coupon {
         return couponRepository.save(CouponEntity.of(coupon)).toDomain()
     }
@@ -28,4 +28,17 @@ class CouponAdapter(
             .orElseThrow { ApplicationException.ofBadRequest(ErrorCode.NOT_FOUND_COUPON) }
     }
 
+    override fun findByCouponPolicyIdAndUserIdAndCouponStatus(
+        couponPolicyId: EntityId,
+        userId: EntityId,
+        couponStatus: CouponUsageStatus,
+    ): Coupon? {
+        return couponRepository.findByCouponPolicyIdAndUserIdAndCouponUsageCouponUsageStatus(
+            couponPolicyId,
+            userId,
+            couponStatus
+        )
+            .map { it.toDomain() }
+            .orElse(null)
+    }
 }
