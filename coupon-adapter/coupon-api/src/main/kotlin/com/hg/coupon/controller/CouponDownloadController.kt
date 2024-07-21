@@ -13,7 +13,6 @@ import java.time.ZonedDateTime
 
 @RestController
 class CouponDownloadController(
-    private val downloadCouponUseCase: DownloadCouponUseCase,
     private val couponDownloadFacadeService: CouponDownloadFacadeService,
 ) {
 
