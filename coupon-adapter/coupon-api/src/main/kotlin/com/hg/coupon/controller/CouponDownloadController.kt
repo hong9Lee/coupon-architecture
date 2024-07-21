@@ -21,6 +21,7 @@ class CouponDownloadController(
     fun couponDownloadSyncXlock(
         @RequestBody request: DownloadCouponRequest
     ): ResponseEntity<DownloadCouponResponse> {
+
         TODO("xLock, stock 업데이트 추가 필요")
         return ResponseEntity.ok(
             couponDownloadFacadeService.download(
