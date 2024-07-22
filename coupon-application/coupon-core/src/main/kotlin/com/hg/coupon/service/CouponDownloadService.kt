@@ -4,6 +4,7 @@ import com.hg.coupon.application.port.`in`.command.coupon.*
 import com.hg.coupon.application.port.out.CouponPort
 import com.hg.coupon.application.port.out.CouponStockPort
 import com.hg.coupon.domain.coupon.CouponPolicy
+import com.hg.coupon.exception.OutOfCouponStockException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.ZonedDateTime
@@ -27,10 +28,28 @@ class CouponDownloadService(
                 downloadCouponCommand.toCoupon(couponPolicy)
             )
 
+        /**
+         * xLock 구간은 [stockEntity 조회 - transaction 종료 혹은 timeout 까지]
+         */
+        updateStockByLock(couponPolicy)
+
         return DownloadCouponResult(
             couponPolicyId = savedCoupon.couponPolicyId,
             couponId = savedCoupon.couponId
         )
+    }
+
+    private fun updateStockByLock(couponPolicy: CouponPolicy) {
+        val couponStock = couponStockPort.findCouponStockByCouponPolicyId(
+            couponPolicyId = couponPolicy.couponPolicyId
+        )
+
+        if (!couponStock.isRemainStock()) {
+            throw OutOfCouponStockException.of()
+        }
+
+        couponStock.increaseSellStock()
+        couponStockPort.save(couponStock)
     }
 
     override fun checkCouponDownloadable(downloadSyncCouponCommand: DownloadSyncCouponCommand): DownloadSyncCouponResult {

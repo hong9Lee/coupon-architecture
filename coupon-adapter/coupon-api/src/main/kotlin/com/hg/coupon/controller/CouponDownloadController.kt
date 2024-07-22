@@ -1,6 +1,5 @@
 package com.hg.coupon.controller
 
-import com.hg.coupon.application.port.`in`.command.coupon.DownloadCouponUseCase
 import com.hg.coupon.request.DownloadCouponRequest
 import com.hg.coupon.response.DownloadCouponResponse
 import com.hg.coupon.service.CouponDownloadFacadeService
@@ -17,11 +16,9 @@ class CouponDownloadController(
 ) {
 
     @PostMapping(UrlConstants.쿠폰_다운로드_동기_xLock)
-    fun couponDownloadSyncXlock(
+    fun couponDownloadSyncXLock(
         @RequestBody request: DownloadCouponRequest
     ): ResponseEntity<DownloadCouponResponse> {
-
-        TODO("xLock, stock 업데이트 추가 필요")
         return ResponseEntity.ok(
             couponDownloadFacadeService.download(
                 request,
