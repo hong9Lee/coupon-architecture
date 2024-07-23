@@ -70,6 +70,66 @@ services:
       - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:29092
       - KAFKA_CLUSTERS_0_ZOOKEPER=zookeeper:22181
 
+  api-instance-1:
+    container_name: api-instance-1
+    image: api-service-image:latest
+    build:
+      context: ../
+      dockerfile: docker/instance/Dockerfile
+    environment:
+      - APPLICATION_NAME=couponApiService
+      - SPRING_PROFILES_ACTIVE=docker
+      - SERVER_PORT=8081
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=102030
+    depends_on:
+      - mysql
+      - eureka-server
+    ports:
+      - "8081:8081"
+    networks:
+      - local-net
+
+  api-instance-2:
+    container_name: api-instance-2
+    image: api-service-image:latest
+    build:
+      context: ../
+      dockerfile: docker/instance/Dockerfile
+    environment:
+      - APPLICATION_NAME=couponApiService
+      - SPRING_PROFILES_ACTIVE=docker
+      - SERVER_PORT=8081
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=102030
+    depends_on:
+      - mysql
+      - eureka-server
+    ports:
+      - "8082:8082"
+    networks:
+      - local-net
+
+  api-instance-3:
+    container_name: api-instance-3
+    image: api-service-image:latest
+    build:
+      context: ../
+      dockerfile: docker/instance/Dockerfile
+    environment:
+      - APPLICATION_NAME=couponApiService
+      - SPRING_PROFILES_ACTIVE=docker
+      - SERVER_PORT=8081
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=102030
+    depends_on:
+      - mysql
+      - eureka-server
+    ports:
+      - "8083:8083"
+    networks:
+      - local-net
+
 networks:
   local-net:
     driver: bridge
