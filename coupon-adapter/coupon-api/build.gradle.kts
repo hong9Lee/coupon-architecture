@@ -8,9 +8,10 @@ plugins {
 
 val jar: Jar by tasks
 val bootJar: BootJar by tasks
+bootJar.enabled = true
+jar.enabled = true
+bootJar.archiveFileName.set("api.jar")
 
-bootJar.enabled = false
-jar.enabled = false
 
 dependencies {
     implementation(project(":coupon-application:coupon-core"))
@@ -30,5 +31,4 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-
 }

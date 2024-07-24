@@ -13,3 +13,9 @@ spring:
     include:
       - persistence
 
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+

@@ -6,15 +6,13 @@ spring:
   application:
     name: coupon-persistence
 
-  #  db
-  datasource:
-    url: jdbc:mysql://localhost:23306/local_db
-    username: root
-    password: 102030
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
 
   flyway:
     enabled: true
@@ -22,6 +20,7 @@ spring:
     baseline-on-migrate: true
     locations:
       - "classpath:db/migration/coupon"
+    defaultSchema: coupon
 ---
 
 spring:
@@ -33,6 +32,20 @@ spring:
     hikari:
       max-lifetime: 250000 #250 sec
     driver-class-name: software.aws.rds.jdbc.mysql.Driver
-    url: jdbc:mysql:aws://localhost:3306/coupon?autoReconnect=true
+    url: jdbc:mysql://localhost:23306/coupon?autoReconnect=true
     username: user
     password: user
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: docker
+  datasource:
+    url: jdbc:mysql://mysql:3306/coupon?autoReconnect=true
+    username: user
+    password: user
+
+  flyway:
+    enabled: false

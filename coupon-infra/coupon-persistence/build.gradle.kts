@@ -65,3 +65,5 @@ tasks.named("clean") {
         file(queryDslSrcDir).deleteRecursively()
     }
 }
+
+
