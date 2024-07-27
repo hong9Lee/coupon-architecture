@@ -5,8 +5,8 @@ import com.hg.coupon.application.port.`in`.command.coupon.DownloadCouponUseCase
 import com.hg.coupon.application.port.`in`.command.user.FindUserCommand
 import com.hg.coupon.application.port.`in`.command.user.FindUserUseCase
 import com.hg.coupon.domain.user.CouponUser
-import com.hg.coupon.request.DownloadCouponRequest
-import com.hg.coupon.response.DownloadCouponResponse
+import com.hg.coupon.controller.data.request.DownloadCouponRequest
+import com.hg.coupon.controller.data.response.DownloadCouponResponse
 import com.hg.coupon.support.EntityId
 import com.hg.coupon.validator.CouponValidator
 import org.springframework.stereotype.Service

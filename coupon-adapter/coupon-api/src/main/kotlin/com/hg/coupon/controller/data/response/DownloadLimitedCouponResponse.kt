@@ -1,4 +1,4 @@
-package com.hg.coupon.response
+package com.hg.coupon.controller.data.response
 
 import com.hg.coupon.application.port.`in`.command.coupon.DownloadSyncCouponResult
 

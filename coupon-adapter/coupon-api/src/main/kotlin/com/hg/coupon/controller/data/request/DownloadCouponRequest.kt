@@ -1,4 +1,4 @@
-package com.hg.coupon.request
+package com.hg.coupon.controller.data.request
 
 import com.hg.coupon.application.port.`in`.command.coupon.DownloadCouponCommand
 import com.hg.coupon.support.EntityId

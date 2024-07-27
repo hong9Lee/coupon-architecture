@@ -1,7 +1,7 @@
 package com.hg.coupon.controller
 
-import com.hg.coupon.request.DownloadCouponRequest
-import com.hg.coupon.response.DownloadCouponResponse
+import com.hg.coupon.controller.data.request.DownloadCouponRequest
+import com.hg.coupon.controller.data.response.DownloadCouponResponse
 import com.hg.coupon.service.CouponDownloadFacadeService
 import com.hg.coupon.supprots.UrlConstants
 import org.springframework.http.ResponseEntity
