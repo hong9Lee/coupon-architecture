@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: coupon-redis-cache
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Seoul
+  serialization:
+    write-dates-as-timestamps: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  cache:
+    type: redis
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      ttl: 300
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+
+  cache:
+    type: redis
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      ttl: 300
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  cache:
+    type: redis
+  data:
+    redis:
+      host: wad-dev-redis.sexu6b.ng.0001.apn2.cache.amazonaws.com
+      port: 6379
+      ttl: 10
+
+---

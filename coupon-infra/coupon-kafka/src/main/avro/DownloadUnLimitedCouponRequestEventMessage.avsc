@@ -1,0 +1,19 @@
+{
+  "type": "record",
+  "name": "DownloadAsyncCouponRequestEventMessage",
+  "namespace": "co.wadcorp.coupon.message",
+  "fields": [
+    {
+      "name": "couponPolicyId",
+      "type": "string"
+    },
+    {
+      "name": "channel",
+      "type": "string"
+    },
+    {
+      "name": "channelUserId",
+      "type": "string"
+    }
+  ]
+}
