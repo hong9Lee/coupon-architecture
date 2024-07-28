@@ -2,12 +2,16 @@ spring:
   application:
     name: coupon-kafka
 
-
   kafka:
     topics:
-      coupon-download: coupon-download-request
+      async-download-request: coupon-download-asyncRequest
     consumer:
       group-id: coupon-consumer
+      bootstrap-servers: localhost:29092
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
 ---
 
 spring:
@@ -16,9 +20,7 @@ spring:
       on-profile: local
   kafka:
     consumer:
-      bootstrap-servers: localhost:9092
-      group-id: coupon-consumer
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
----
+      bootstrap-servers: localhost:29092
+
+confluent-schema-registry:
+  url: http://localhost:8081

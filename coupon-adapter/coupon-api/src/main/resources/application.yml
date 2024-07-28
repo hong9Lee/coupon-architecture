@@ -12,6 +12,8 @@ spring:
   profiles:
     include:
       - persistence
+      - redis
+      - kafka
 
 ---
 spring:
