@@ -12,12 +12,13 @@ bootJar.enabled = true
 jar.enabled = true
 bootJar.archiveFileName.set("api.jar")
 
-
 dependencies {
     implementation(project(":coupon-application:coupon-core"))
     implementation(project(":coupon-application:coupon-edge"))
 
+    implementation(project(":coupon-infra:coupon-kafka"))
     implementation(project(":coupon-infra:coupon-persistence"))
+    implementation(project(":coupon-infra:coupon-redis-cache"))
     implementation(project(":coupon-infra:coupon-orm-adapter"))
 
     implementation("org.springframework.boot:spring-boot-starter")
@@ -27,7 +28,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("mysql:mysql-connector-java:8.0.23")
-
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
