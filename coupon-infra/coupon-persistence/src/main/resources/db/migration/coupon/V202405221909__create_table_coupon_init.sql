@@ -13,8 +13,6 @@ create table coupon
     mod_date_time           datetime(6) null comment '수정일자'
 ) comment '쿠폰 테이블';
 
-
-
 create table coupon_policy
 (
     seq                     bigint auto_increment comment '쿠폰 정책 시퀀스' primary key,
@@ -32,7 +30,6 @@ create table coupon_stock
 (
     seq              bigint auto_increment comment '쿠폰 재고 시퀀스' primary key,
     coupon_policy_id varchar(64) not null comment '쿠폰 ID',
-    coupon_type      varchar(64) not null comment '쿠폰 타입(재고 제한-STOCKED, 재고 무제한-UNLIMITED)',
     stock            varchar(64) not null comment '초기 설정한 재고 개수',
     sell_stock       varchar(64) not null comment '판매된 개수',
     reg_date_time    datetime(6) null comment '등록일자',

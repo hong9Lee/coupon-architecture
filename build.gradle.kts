@@ -22,7 +22,7 @@ allprojects {
     apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
-    group = "co.wadcorp.coupon"
+    group = "com.hg.coupon"
     version = "0.0.1-SNAPSHOT"
     java.sourceCompatibility = JavaVersion.VERSION_17
 

@@ -69,6 +69,35 @@ services:
       - KAFKA_CLUSTERS_0_NAME=local
       - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:29092
       - KAFKA_CLUSTERS_0_ZOOKEPER=zookeeper:22181
+  kafka-init:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - kafka
+    volumes:
+      - ./topic:/topic
+    entrypoint: [ "/bin/sh", "-c" ]
+    command: [ "chmod +x /topic/register_topic.sh && /topic/register_topic.sh" ]
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:latest
+    depends_on:
+      - zookeeper
+      - kafka
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:29092
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+
+  schema-registrar:
+    image: confluentinc/cp-schema-registry:latest
+    depends_on:
+      - schema-registry
+    volumes:
+      - ./schema:/schema
+    entrypoint: [ "/bin/sh", "-c" ]
+    command: [ "chmod +x /schema/register_schema.sh && /schema/register_schema.sh" ]
 
   api-instance-1:
     container_name: api-instance-1

@@ -24,3 +24,16 @@ spring:
 
 confluent-schema-registry:
   url: http://localhost:8081
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: docker
+  kafka:
+    consumer:
+      bootstrap-servers: kafka:9092
+
+confluent-schema-registry:
+  url: http://schema-registry:8081
