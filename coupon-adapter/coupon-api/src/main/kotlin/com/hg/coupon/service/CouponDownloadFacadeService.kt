@@ -1,9 +1,12 @@
 package com.hg.coupon.service
 
+import com.hg.coupon.application.port.`in`.command.DownloadAsyncCouponUseCase
+import com.hg.coupon.application.port.`in`.command.coupon.DownloadAsyncCouponResult
 import com.hg.coupon.application.port.`in`.command.coupon.DownloadCouponCommand
 import com.hg.coupon.application.port.`in`.command.coupon.DownloadCouponUseCase
 import com.hg.coupon.application.port.`in`.command.user.FindUserCommand
 import com.hg.coupon.application.port.`in`.command.user.FindUserUseCase
+import com.hg.coupon.controller.data.request.DownloadAsyncCouponRequest
 import com.hg.coupon.domain.user.CouponUser
 import com.hg.coupon.controller.data.request.DownloadCouponRequest
 import com.hg.coupon.controller.data.response.DownloadCouponResponse
@@ -16,9 +19,11 @@ import java.time.ZonedDateTime
 class CouponDownloadFacadeService(
     private val couponValidator: CouponValidator,
     private val downloadCouponUseCase: DownloadCouponUseCase,
+    private val downloadAsyncCouponUseCase: DownloadAsyncCouponUseCase,
     private val findUserUseCase: FindUserUseCase,
 ) {
-    fun download(
+
+    fun downloadSyncXLock(
         downloadCouponRequest: DownloadCouponRequest,
         now: ZonedDateTime
     ): DownloadCouponResponse {
@@ -49,6 +54,19 @@ class CouponDownloadFacadeService(
                 now
             )
         )
+    }
+
+    fun downloadAsync(
+        downloadAsyncCouponRequest: DownloadAsyncCouponRequest
+    ): DownloadAsyncCouponResult {
+        val result = downloadCouponUseCase.checkCouponDownloadable(
+            downloadAsyncCouponRequest.to()
+        )
+
+        if (result.isSuccess) {
+            downloadAsyncCouponUseCase.downloadRequest(downloadAsyncCouponRequest.toSendCommand())
+        }
+        return result
     }
 
     private fun getCouponUser(

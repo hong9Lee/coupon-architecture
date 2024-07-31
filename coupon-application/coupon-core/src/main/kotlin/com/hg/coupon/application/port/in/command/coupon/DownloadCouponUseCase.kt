@@ -11,6 +11,6 @@ interface DownloadCouponUseCase {
     ): DownloadCouponResult
 
     fun checkCouponDownloadable(
-        downloadSyncCouponCommand: DownloadSyncCouponCommand
-    ): DownloadSyncCouponResult
+        downloadAsyncCouponCommand: DownloadAsyncCouponCommand
+    ): DownloadAsyncCouponResult
 }

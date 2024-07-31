@@ -20,6 +20,10 @@ class CouponEntity(
     @AttributeOverride(name = "value", column = Column(name = "coupon_policy_id"))
     private val couponPolicyId: EntityId,
 
+    @Embedded
+    @AttributeOverride(name = "value", column = Column(name = "user_id"))
+    private val userId: EntityId,
+
     @Column(name = "coupon_name")
     private val couponName: String,
 
@@ -29,10 +33,6 @@ class CouponEntity(
     @Column(name = "coupon_usage_status")
     @Enumerated(EnumType.STRING)
     private val couponUsageStatus: CouponUsageStatus,
-
-    @Embedded
-    @AttributeOverride(name = "value", column = Column(name = "user_id"))
-    private val userId: EntityId,
 
     @Column(name = "coupon_start_date_time")
     private val couponStartDateTime: ZonedDateTime,

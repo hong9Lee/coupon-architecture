@@ -11,6 +11,6 @@ import java.util.*
 
 interface CouponStockRepository : CrudRepository<CouponStockEntity, Long> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @QueryHints(value = [QueryHint(name = "javax.persistence.lock.timeout", value = "5000")])
+    @QueryHints(value = [QueryHint(name = "jakarta.persistence.lock.timeout", value = "5000")])
     fun findByCouponPolicyId(couponPolicyId: EntityId): Optional<CouponStockEntity>
 }

@@ -20,7 +20,6 @@ import java.time.ZonedDateTime
 class GeneralCouponValidator(
     private val couponPolicyPort: CouponPolicyPort,
     private val couponPort: CouponPort,
-    private val couponStockPort: CouponStockPort,
 ) : CouponValidator {
 
     /** 쿠폰 정책 validation */
@@ -46,16 +45,5 @@ class GeneralCouponValidator(
         )?.let {
             throw CouponAlreadyExistException.of()
         }
-    }
-
-    /** 재고가 있는가? */
-    override fun validateCouponStock(couponPolicyId: EntityId): CouponStock {
-        val couponStock =
-            couponStockPort.findCouponStockByCouponPolicyId(couponPolicyId)
-
-        if (couponStock.isRemainStock()) {
-            throw OutOfCouponStockException.of()
-        }
-        return couponStock
     }
 }
