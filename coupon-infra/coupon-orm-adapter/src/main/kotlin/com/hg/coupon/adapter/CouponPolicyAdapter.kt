@@ -21,8 +21,7 @@ class CouponPolicyAdapter(
     }
 
     override fun save(
-        couponPolicy: CouponPolicy,
-        executionCost: Amount
+        couponPolicy: CouponPolicy
     ): CouponPolicy {
         val couponPolicyEntity = CouponPolicyEntity.of(couponPolicy)
         val savedCouponPolicyEntity = couponPolicyRepository.save(couponPolicyEntity)
