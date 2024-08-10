@@ -11,5 +11,7 @@ fun findByCouponPolicyId(couponPolicyId: EntityId): Optional<CouponStockEntity>
 ```
 
 
-2. 비동기 방식
-
+2. 비동기 방식  
+redis를 사용하여 재고 관리.  
+쿠폰 발급을 위한 메시지 발급은 kafka를 사용함.
+순서처리가 중요하여 kafka 파티션은 1개로 테스트 진행.
