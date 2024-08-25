@@ -23,9 +23,10 @@ class CouponDownloadFacadeService(
     private val findUserUseCase: FindUserUseCase,
 ) {
 
-    fun downloadSyncXLock(
+    fun downloadSync(
         downloadCouponRequest: DownloadCouponRequest,
-        now: ZonedDateTime
+        now: ZonedDateTime,
+        method: String = "normal"
     ): DownloadCouponResponse {
         val couponPolicyId = EntityId(downloadCouponRequest.couponPolicyId)
         val couponUser = findUserUseCase.findUser(
@@ -51,7 +52,8 @@ class CouponDownloadFacadeService(
             downloadCouponUseCase.downloadRequest(
                 downloadCouponCommand,
                 couponPolicy,
-                now
+                now,
+                method
             )
         )
     }

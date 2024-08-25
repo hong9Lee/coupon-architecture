@@ -17,14 +17,27 @@ class CouponDownloadController(
     private val couponDownloadFacadeService: CouponDownloadFacadeService,
 ) {
 
+    @PostMapping(UrlConstants.쿠폰_다운로드_동기)
+    fun couponDownloadSync(
+        @RequestBody request: DownloadCouponRequest
+    ): ResponseEntity<DownloadCouponResponse> {
+        return ResponseEntity.ok(
+            couponDownloadFacadeService.downloadSync(
+                request,
+                ZonedDateTime.now()
+            )
+        )
+    }
+
     @PostMapping(UrlConstants.쿠폰_다운로드_동기_xLock)
     fun couponDownloadSyncXLock(
         @RequestBody request: DownloadCouponRequest
     ): ResponseEntity<DownloadCouponResponse> {
         return ResponseEntity.ok(
-            couponDownloadFacadeService.downloadSyncXLock(
+            couponDownloadFacadeService.downloadSync(
                 request,
-                ZonedDateTime.now()
+                ZonedDateTime.now(),
+                "xLock"
             )
         )
     }

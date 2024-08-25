@@ -5,6 +5,7 @@ import com.hg.coupon.support.EntityId
 
 
 interface CouponStockPort {
-    fun findCouponStockByCouponPolicyId(couponPolicyId: EntityId): CouponStock
+    fun findByCouponPolicyId(couponPolicyId: EntityId): CouponStock
+    fun findByCouponPolicyIdWithLock(couponPolicyId: EntityId): CouponStock
     fun save(couponStock: CouponStock): CouponStock
 }
