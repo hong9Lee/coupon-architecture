@@ -1,10 +1,10 @@
 package com.hg.coupon.service
 
-import com.hg.coupon.application.port.out.cache.CouponCacheTransactionPort
 import com.hg.coupon.application.port.`in`.command.coupon.*
 import com.hg.coupon.application.port.out.CouponPort
 import com.hg.coupon.application.port.out.CouponStockPort
 import com.hg.coupon.application.port.out.cache.CouponCachePort
+import com.hg.coupon.application.port.out.cache.CouponCacheTransactionPort
 import com.hg.coupon.domain.coupon.CouponPolicy
 import com.hg.coupon.exception.ErrorCode
 import com.hg.coupon.exception.OutOfCouponStockException
@@ -15,19 +15,21 @@ import org.springframework.transaction.annotation.Transactional
 import java.time.ZonedDateTime
 
 private val logger = KotlinLogging.logger {}
+
 @Service
 class DownloadCouponService(
     private val couponPort: CouponPort,
     private val couponCachePort: CouponCachePort,
     private val couponCacheTransactionPort: CouponCacheTransactionPort,
     private val couponStockPort: CouponStockPort
-): DownloadCouponUseCase {
+) : DownloadCouponUseCase {
 
     @Transactional(timeout = 10)
     override fun downloadRequest(
         downloadCouponCommand: DownloadCouponCommand,
         couponPolicy: CouponPolicy,
-        now: ZonedDateTime
+        now: ZonedDateTime,
+        method: String
     ): DownloadCouponResult {
 
         /** 쿠폰 저장 */
@@ -39,7 +41,12 @@ class DownloadCouponService(
         /**
          * xLock 구간은 [stockEntity 조회 - transaction 종료 혹은 timeout 까지]
          */
-        updateStockByLock(couponPolicy)
+        if (method == "xLock") {
+            updateStockByLock(couponPolicy)
+        } else {
+            updateStock(couponPolicy)
+        }
+
 
         return DownloadCouponResult(
             couponPolicyId = savedCoupon.couponPolicyId,
@@ -48,7 +55,20 @@ class DownloadCouponService(
     }
 
     private fun updateStockByLock(couponPolicy: CouponPolicy) {
-        val couponStock = couponStockPort.findCouponStockByCouponPolicyId(
+        val couponStock = couponStockPort.findByCouponPolicyIdWithLock(
+            couponPolicyId = couponPolicy.couponPolicyId
+        )
+
+        if (couponStock.isRemainStock()) {
+            throw OutOfCouponStockException.of()
+        }
+
+        couponStock.increaseSellStock()
+        couponStockPort.save(couponStock)
+    }
+
+    private fun updateStock(couponPolicy: CouponPolicy) {
+        val couponStock = couponStockPort.findByCouponPolicyId(
             couponPolicyId = couponPolicy.couponPolicyId
         )
 

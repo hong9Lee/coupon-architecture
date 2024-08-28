@@ -105,7 +105,7 @@ class DownloadCouponServiceTest {
         executor.shutdown()
         executor.awaitTermination(20, TimeUnit.SECONDS)
 
-        val remainingStock = couponStockPort.findCouponStockByCouponPolicyId(couponPolicyId)!!.sellStock
+        val remainingStock = couponStockPort.findCouponStockByCouponPolicyIdByLock(couponPolicyId)!!.sellStock
         assertEquals(10, remainingStock)
 
         val totalCoupons = (0 until 10).map { index ->

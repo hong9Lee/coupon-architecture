@@ -7,7 +7,8 @@ interface DownloadCouponUseCase {
     fun downloadRequest(
         downloadCouponCommand: DownloadCouponCommand,
         couponPolicy: CouponPolicy,
-        now: ZonedDateTime
+        now: ZonedDateTime,
+        method: String
     ): DownloadCouponResult
 
     fun checkCouponDownloadable(

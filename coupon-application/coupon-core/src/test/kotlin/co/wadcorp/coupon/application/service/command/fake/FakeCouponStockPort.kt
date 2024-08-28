@@ -7,7 +7,7 @@ import com.hg.coupon.support.EntityId
 class FakeCouponStockPort : CouponStockPort {
     private val couponStockMap = hashMapOf<EntityId, CouponStock>()
 
-    override fun findCouponStockByCouponPolicyId(couponPolicyId: EntityId): CouponStock {
+    override fun findCouponStockByCouponPolicyIdByLock(couponPolicyId: EntityId): CouponStock {
         return couponStockMap[couponPolicyId]
             ?: throw NoSuchElementException("Coupon stock not found")
     }

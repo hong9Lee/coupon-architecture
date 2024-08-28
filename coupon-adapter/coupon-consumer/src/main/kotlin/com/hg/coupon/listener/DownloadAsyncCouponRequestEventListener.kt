@@ -59,7 +59,8 @@ class DownloadAsyncCouponRequestEventListener(
             downloadCouponUseCase.downloadRequest(
                 downloadCouponCommand,
                 couponPolicy,
-                now
+                now,
+                "xLock"
             )
         } catch (e: Exception) {
             logger.error { "${e}, downloadAsyncCouponMessage:{$downloadAsyncCouponMessage}" }
