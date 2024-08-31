@@ -96,7 +96,8 @@ class DownloadCouponServiceTest {
                 downloadCouponService.downloadRequest(
                     command,
                     couponPolicy,
-                    now
+                    now,
+                    method = "xLock"
                 )
             }
         }
@@ -105,7 +106,7 @@ class DownloadCouponServiceTest {
         executor.shutdown()
         executor.awaitTermination(20, TimeUnit.SECONDS)
 
-        val remainingStock = couponStockPort.findCouponStockByCouponPolicyIdByLock(couponPolicyId)!!.sellStock
+        val remainingStock = couponStockPort.findByCouponPolicyIdWithLock(couponPolicyId)!!.sellStock
         assertEquals(10, remainingStock)
 
         val totalCoupons = (0 until 10).map { index ->

@@ -23,3 +23,15 @@ spring:
 server:
   port: 9004
   shutdown: graceful
+
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+server:
+  port: 9004
+  shutdown: graceful

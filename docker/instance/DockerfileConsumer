@@ -1,0 +1,5 @@
+FROM openjdk:17
+
+COPY ../../coupon-adapter/coupon-consumer/build/libs/consumer.jar /consumer.jar
+
+ENTRYPOINT ["sh", "-c", "java -jar /consumer.jar"]

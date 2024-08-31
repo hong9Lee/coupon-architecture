@@ -12,9 +12,10 @@ import com.hg.coupon.controller.data.request.DownloadCouponRequest
 import com.hg.coupon.controller.data.response.DownloadCouponResponse
 import com.hg.coupon.support.EntityId
 import com.hg.coupon.validator.CouponValidator
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Service
 import java.time.ZonedDateTime
-
+private val logger = KotlinLogging.logger {}
 @Service
 class CouponDownloadFacadeService(
     private val couponValidator: CouponValidator,
@@ -61,6 +62,7 @@ class CouponDownloadFacadeService(
     fun downloadAsync(
         downloadAsyncCouponRequest: DownloadAsyncCouponRequest
     ): DownloadAsyncCouponResult {
+        logger.info { "downloadAsync: 쿠폰_다운로드_비동기_요청" }
         val result = downloadCouponUseCase.checkCouponDownloadable(
             downloadAsyncCouponRequest.to()
         )

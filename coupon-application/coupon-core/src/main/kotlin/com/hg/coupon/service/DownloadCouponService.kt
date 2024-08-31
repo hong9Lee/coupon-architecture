@@ -84,6 +84,7 @@ class DownloadCouponService(
         downloadAsyncCouponCommand: DownloadAsyncCouponCommand
     ): DownloadAsyncCouponResult {
 
+        logger.info { "checkCouponDownloadable: 쿠폰 다운로드 가능 여부 체크 " }
         return couponCacheTransactionPort.executeTransaction {
             val couponPolicyId = downloadAsyncCouponCommand.couponPolicyId.value
             val channelUserId = downloadAsyncCouponCommand.channelUserId
@@ -93,7 +94,7 @@ class DownloadCouponService(
                     downloadAsyncCouponCommand.getRedisKey(),
                     couponPolicyId
                 )
-
+            logger.info { "checkCouponDownloadable: 유저 쿠폰 다운로드 여부 체크 addToUsersCouponSet:$addToUsersCouponSet " }
             if (addToUsersCouponSet.toInt() != 1) {
                 return@executeTransaction DownloadAsyncCouponResult(
                     couponPolicyId = EntityId(couponPolicyId),
@@ -103,6 +104,7 @@ class DownloadCouponService(
                 )
             }
 
+            logger.info { "checkCouponDownloadable: 쿠폰 재고 체크 " }
             val couponCount = couponCachePort.decrementValue(couponPolicyId)
             if (couponCount < 0) {
                 // 재고가 없으면 사용자 발급 기록 롤백

@@ -67,8 +67,10 @@ services:
     restart: always
     environment:
       - KAFKA_CLUSTERS_0_NAME=local
-      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:29092
-      - KAFKA_CLUSTERS_0_ZOOKEPER=zookeeper:22181
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
+      - KAFKA_CLUSTERS_0_ZOOKEPER=zookeeper:2181
+    networks:
+      - local-net
   kafka-init:
     image: confluentinc/cp-kafka:latest
     depends_on:
@@ -77,6 +79,8 @@ services:
       - ./topic:/topic
     entrypoint: [ "/bin/sh", "-c" ]
     command: [ "chmod +x /topic/register_topic.sh && /topic/register_topic.sh" ]
+    networks:
+      - local-net
 
   schema-registry:
     image: confluentinc/cp-schema-registry:latest
@@ -84,11 +88,13 @@ services:
       - zookeeper
       - kafka
     ports:
-      - "8081:8081"
+      - "18081:18081"
     environment:
-      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:29092
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:9092
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
-      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:18081
+    networks:
+      - local-net
 
   schema-registrar:
     image: confluentinc/cp-schema-registry:latest
@@ -104,7 +110,7 @@ services:
     image: api-service-image:latest
     build:
       context: ../
-      dockerfile: docker/instance/Dockerfile
+      dockerfile: docker/instance/DockerfileApi
     environment:
       - APPLICATION_NAME=couponApiService
       - SPRING_PROFILES_ACTIVE=docker
@@ -123,7 +129,7 @@ services:
     image: api-service-image:latest
     build:
       context: ../
-      dockerfile: docker/instance/Dockerfile
+      dockerfile: docker/instance/DockerfileApi
     environment:
       - APPLICATION_NAME=couponApiService
       - SPRING_PROFILES_ACTIVE=docker
@@ -142,7 +148,7 @@ services:
     image: api-service-image:latest
     build:
       context: ../
-      dockerfile: docker/instance/Dockerfile
+      dockerfile: docker/instance/DockerfileApi
     environment:
       - APPLICATION_NAME=couponApiService
       - SPRING_PROFILES_ACTIVE=docker
@@ -153,6 +159,25 @@ services:
       - mysql
     ports:
       - "8083:8083"
+    networks:
+      - local-net
+
+  coupon-consumer-1:
+    container_name: coupon-consumer-1
+    image: consumer-service-image:latest
+    build:
+      context: ../
+      dockerfile: docker/instance/DockerfileConsumer
+    environment:
+      - APPLICATION_NAME=couponConsumerService
+      - SPRING_PROFILES_ACTIVE=docker
+      - SERVER_PORT=9004
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=102030
+    depends_on:
+      - mysql
+    ports:
+      - "9004:9004"
     networks:
       - local-net
 

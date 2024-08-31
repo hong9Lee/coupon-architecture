@@ -31,7 +31,7 @@ class DownloadAsyncCouponService(
         // fall back -> redis 쿠폰 재고 원복, 유저 발행 캐시 제거
         if (!sendDownloadAsyncCouponResult.success) {
             logger.error {
-                "[kafka topic 발행 실패] couponP`olicyId:$sendDownloadAsyncCouponResult.couponPolicyId, " +
+                "[kafka topic 발행 실패] couponPolicyId:$sendDownloadAsyncCouponResult.couponPolicyId, " +
                         "channelUserId:$sendDownloadAsyncCouponResult.channelUserId"
             }
 
