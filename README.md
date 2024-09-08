@@ -1,4 +1,5 @@
 # Coupon-architecture
+- Hexagonal 아키텍처, kotlin 기반 쿠폰 프로젝트  
 쿠폰 발급 API를 통해 쿠폰 재고의 동시성, 트래픽 부하 테스트를 진행
 
 1. 동기 방식  
