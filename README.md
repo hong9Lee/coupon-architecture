@@ -16,3 +16,14 @@ fun findByCouponPolicyId(couponPolicyId: EntityId): Optional<CouponStockEntity>
 redis를 사용하여 재고 관리.  
 쿠폰 발급을 위한 메시지 발급은 kafka를 사용함.
 순서처리가 중요하여 kafka 파티션은 1개로 테스트 진행.
+
+테스트 시, 재고 문제  
+환경: 10 Process X 100 Threads
+
+쿠폰 재고 설정: 100,000개  
+테스트 수행 결과:  
+테스트 실행 횟수 (Executed Tests): 115,128 - 요청 횟수와 발행 횟수가 맞지 않음.  
+요청한 유저 수: 122,302  
+Redis 남은 재고: 877,698개  
+Kafka 메시지 수: 122,302  
+Consumer Lag: 35295 - Consumer가 메시지 처리 속도가 Producer의 메시지 발행 속도를 따라잡지 못하고 있음.
